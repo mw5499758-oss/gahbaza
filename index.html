@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#111827">
+<title>GAPZA | متجرك الإلكتروني</title>
+<style>
+:root{--ink:#111827;--muted:#667085;--bg:#f7f8fb;--card:#fff;--accent:#f3a712;--line:#e8ebf0}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select{font:inherit}button{cursor:pointer;border:0}
+.top{background:#111827;color:#fff;text-align:center;padding:9px 12px;font-size:13px}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.nav{max-width:1160px;margin:auto;padding:14px 18px;display:flex;align-items:center;gap:16px}
+.logo{font-size:25px;font-weight:900;letter-spacing:2px;color:#111827}.logo span{color:var(--accent)}
+.search{flex:1;display:flex;background:#f3f4f6;border-radius:12px;padding:0 12px;min-width:80px}
+.search input{width:100%;border:0;background:transparent;outline:0;padding:12px}
+.cartbtn{background:#111827;color:#fff;padding:11px 15px;border-radius:11px;font-weight:bold;white-space:nowrap}
+.hero{max-width:1160px;margin:22px auto;padding:0 18px}
+.hero-box{background:linear-gradient(115deg,#111827,#273449);color:white;border-radius:22px;padding:34px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;overflow:hidden;min-height:210px}
+.hero h1{font-size:clamp(27px,5vw,43px);margin:0 0 12px}.hero p{color:#d8deea;line-height:1.8;margin:0 0 18px}
+.hero .cta{background:var(--accent);color:#111827;padding:12px 20px;border-radius:10px;font-weight:bold}
+.hero-mark{font-size:clamp(52px,11vw,105px);font-weight:900;color:#ffffff18;letter-spacing:4px}
+main{max-width:1160px;margin:0 auto;padding:0 18px 50px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:28px 0 15px}.section-head h2{margin:0;font-size:22px}
+.categories{display:flex;gap:9px;overflow:auto;padding-bottom:5px}
+.chip{background:#fff;border:1px solid var(--line);padding:10px 16px;border-radius:30px;white-space:nowrap;color:#344054}
+.chip.active{background:#111827;color:white;border-color:#111827}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.product{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.pic{height:160px;background:linear-gradient(135deg,#eef1f5,#dfe4ec);display:grid;place-items:center;font-size:55px}
+.info{padding:13px;display:flex;flex-direction:column;gap:8px;flex:1}
+.tag{font-size:11px;color:#8a5b00;background:#fff5d9;border-radius:20px;padding:5px 9px;width:max-content}
+.product h3{font-size:15px;margin:0}.desc{font-size:12px;color:var(--muted);line-height:1.6;min-height:34px}
+.price-row{display:flex;justify-content:space-between;align-items:center;margin-top:auto}.price{font-weight:900}
+.add{background:#111827;color:white;padding:9px 11px;border-radius:9px;font-size:12px}
+.empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:35px}
+footer{background:#111827;color:#fff;padding:30px 18px;text-align:center;line-height:1.9}
+footer small{color:#c5ccda}
+.overlay{position:fixed;inset:0;background:#0008;z-index:10;display:none}
+.drawer{position:fixed;top:0;bottom:0;left:0;width:min(420px,94vw);background:#fff;z-index:11;padding:18px;transform:translateX(-105%);transition:.25s;overflow:auto}
+.drawer.open{transform:translateX(0)}.overlay.show{display:block}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:12px}
+.close{background:#f1f2f4;border-radius:9px;padding:8px 12px}
+.cart-line{display:flex;justify-content:space-between;gap:10px;padding:14px 0;border-bottom:1px solid var(--line)}
+.qty{display:flex;align-items:center;gap:8px}.qty button{background:#edf0f4;border-radius:6px;padding:4px 9px}
+.total{font-size:18px;font-weight:bold;display:flex;justify-content:space-between;margin:18px 0}
+.checkout{width:100%;background:#16a34a;color:white;padding:13px;border-radius:10px;font-weight:bold}
+.note{font-size:12px;color:var(--muted);line-height:1.7}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-mark{display:none}.hero-box{padding:28px 22px}.pic{height:140px}}
+@media(max-width:430px){.nav{gap:8px;padding:11px}.logo{font-size:20px}.search input{padding:10px 4px}.cartbtn{padding:10px;font-size:12px}.grid{gap:10px}.info{padding:10px}.pic{height:125px}}
+</style>
+</head>
+<body>
+<div class="top">أهلاً بيك في GAPZA — تسوّق بسهولة من موبايلك</div>
+<header><div class="nav">
+  <div class="logo">GAP<span>ZA</span></div>
+  <div class="search"><input id="search" placeholder="ابحث عن منتج..." aria-label="ابحث عن منتج"></div>
+  <button class="cartbtn" id="openCart">🛒 السلة <span id="count">0</span></button>
+</div></header>
+<section class="hero"><div class="hero-box">
+  <div><h1>كل اللي بتحبه<br>في مكان واحد</h1><p>اكتشف منتجات مختارة وتسوق بطريقتك.<br>GAPZA — تجربة تسوق بسيطة وسريعة.</p><button class="cta" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">تسوق الآن</button></div>
+  <div class="hero-mark">GAPZA</div>
+</div></section>
+<main>
+  <div class="section-head"><h2>تسوق حسب القسم</h2></div>
+  <div class="categories" id="categories"></div>
+  <div class="section-head" id="products"><h2>منتجاتنا</h2><span style="font-size:12px;color:#667085" id="resultCount"></span></div>
+  <div class="grid" id="grid"></div>
+</main>
+<footer><div class="logo" style="color:white">GAP<span>ZA</span></div><p>متجرك الإلكتروني — تسوق بثقة وسهولة</p><small>© <span id="year"></span> GAPZA. جميع الحقوق محفوظة.</small></footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="سلة المشتريات">
+  <div class="drawer-head"><h2>سلة المشتريات</h2><button class="close" id="closeCart">إغلاق ✕</button></div>
+  <div id="cartItems"></div>
+  <div class="total"><span>الإجمالي</span><span id="total">0 ج.م</span></div>
+  <p class="note">عند الضغط على إتمام الطلب سيتم تجهيز رسالة بالمنتجات لإرسالها عبر واتساب. أضف رقم واتساب المتجر في الكود قبل استقبال طلبات حقيقية.</p>
+  <button class="checkout" id="checkout">إتمام الطلب عبر واتساب</button>
+</aside>
+<script>
+const products = [
+ {id:1,name:"سماعة لاسلكية",category:"إلكترونيات",price:450,emoji:"🎧",desc:"سماعة عملية للاستخدام اليومي"},
+ {id:2,name:"ساعة عصرية",category:"إكسسوارات",price:650,emoji:"⌚",desc:"تصميم أنيق يناسب كل الأوقات"},
+ {id:3,name:"حقيبة يومية",category:"موضة",price:390,emoji:"👜",desc:"حقيبة خفيفة وعملية"},
+ {id:4,name:"زجاجة مياه",category:"منزل وحياة",price:180,emoji:"🧴",desc:"مناسبة للعمل والجامعة والرياضة"},
+ {id:5,name:"مصباح مكتب",category:"منزل وحياة",price:320,emoji:"💡",desc:"إضاءة مريحة للمذاكرة والعمل"},
+ {id:6,name:"نظارة شمسية",category:"إكسسوارات",price:275,emoji:"🕶️",desc:"ستايل بسيط للاستخدام اليومي"},
+ {id:7,name:"تيشيرت basic",category:"موضة",price:299,emoji:"👕",desc:"قطعة أساسية بإطلالة مريحة"},
+ {id:8,name:"شاحن سريع",category:"إلكترونيات",price:220,emoji:"🔌",desc:"شاحن للاستخدام اليومي"}
+];
+let cart = JSON.parse(localStorage.getItem("gapza-cart")||"{}");
+let active = "الكل";
+const categories = ["الكل",...new Set(products.map(p=>p.category))];
+const money = n => n.toLocaleString("en-US")+" ج.م";
+function save(){localStorage.setItem("gapza-cart",JSON.stringify(cart));renderCart()}
+function renderCategories(){
+ document.getElementById("categories").innerHTML=categories.map(c=>`<button class="chip ${active===c?'active':''}" onclick="setCategory('${c}')">${c}</button>`).join("");
+}
+function setCategory(c){active=c;renderCategories();renderProducts()}
+function renderProducts(){
+ const q=document.getElementById("search").value.trim().toLowerCase();
+ const list=products.filter(p=>(active==="الكل"||p.category===active)&&(p.name.toLowerCase().includes(q)||p.category.toLowerCase().includes(q)));
+ document.getElementById("resultCount").textContent=list.length+" منتج";
+ document.getElementById("grid").innerHTML=list.length?list.map(p=>`<article class="product"><div class="pic">${p.emoji}</div><div class="info"><span class="tag">${p.category}</span><h3>${p.name}</h3><div class="desc">${p.desc}</div><div class="price-row"><span class="price">${money(p.price)}</span><button class="add" onclick="add(${p.id})">أضف للسلة +</button></div></div></article>`).join(""):'<div class="empty">مفيش منتجات مطابقة للبحث.</div>';
+}
+function add(id){cart[id]=(cart[id]||0)+1;save();openCart()}
+function renderCart(){
+ const entries=Object.entries(cart).filter(([id,q])=>q>0);
+ document.getElementById("count").textContent=entries.reduce((s,[id,q])=>s+q,0);
+ document.getElementById("cartItems").innerHTML=entries.length?entries.map(([id,q])=>{const p=products.find(x=>x.id==id);return `<div class="cart-line"><div><b>${p.name}</b><div class="note">${money(p.price)} × ${q}</div></div><div class="qty"><button onclick="changeQty(${id},-1)">−</button>${q}<button onclick="changeQty(${id},1)">+</button></div></div>`}).join(""):'<p class="empty">السلة فارغة حاليًا.</p>';
+ const total=entries.reduce((s,[id,q])=>s+products.find(p=>p.id==id).price*q,0);
+ document.getElementById("total").textContent=money(total);
+}
+function changeQty(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];save()}
+function openCart(){document.getElementById("drawer").classList.add("open");document.getElementById("overlay").classList.add("show")}
+function closeCart(){document.getElementById("drawer").classList.remove("open");document.getElementById("overlay").classList.remove("show")}
+document.getElementById("openCart").onclick=openCart;document.getElementById("closeCart").onclick=closeCart;document.getElementById("overlay").onclick=closeCart;
+document.getElementById("search").addEventListener("input",renderProducts);
+document.getElementById("checkout").onclick=()=>{
+ const entries=Object.entries(cart).filter(([id,q])=>q>0);
+ if(!entries.length){alert("أضف منتجات للسلة أولاً");return}
+ const lines=entries.map(([id,q])=>{const p=products.find(x=>x.id==id);return `• ${p.name} × ${q} = ${money(p.price*q)}`});
+ const total=entries.reduce((s,[id,q])=>s+products.find(p=>p.id==id).price*q,0);
+ const msg=encodeURIComponent("مرحباً GAPZA، أريد طلب المنتجات التالية:\n"+lines.join("\n")+"\nالإجمالي: "+money(total));
+ const whatsapp="201000000000"; // غيّر الرقم إلى رقم واتساب المتجر بصيغة دولية بدون +
+ window.open("https://wa.me/"+whatsapp+"?text="+msg,"_blank");
+};
+document.getElementById("year").textContent=new Date().getFullYear();
+renderCategories();renderProducts();renderCart();
+</script>
+</body></html>
